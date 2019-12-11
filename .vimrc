@@ -1,24 +1,7 @@
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-Plugin 'c.vim'
-Plugin 'rust-lang/rust.vim'
-" Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
-
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
 set number
 set relativenumber
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+set tabstop=4 softtabstop=0 expandtab shiftwidth=2 smarttab
 set splitbelow
 set splitright
 
@@ -26,20 +9,64 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
-inoremap <C-a> <Esc>/<++><Enter>cf>
-
-autocmd vimenter * NERDTree
-let g:go_auto_type_info = 1
+nmap j gj
+nmap k gk
 call plug#begin('~/.vim/plugged')
-Plug 'elmcast/elm-vim'
+Plug 'nightsense/carbonized'
+Plug 'SirVer/ultisnips'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'danilo-augusto/vim-afterglow'
+Plug 'thomasfaingnaert/vim-lsp-snippets'
+Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+Plug 'tpope/vim-fugitive'
+Plug 'lervag/vimtex'
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
 call plug#end()
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
-let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
-let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
-let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
-let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
-let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
-let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+nnoremap <leader>t      :LspHover<CR>
+nnoremap <leader>d      :LspDefinition<CR>
+nnoremap <leader>ev     :tabe ~/.vimrc<CR>
+nnoremap <leader>sv     :so ~/.vimrc<CR>
+nnoremap <leader>q      :wqa<CR>
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+if executable('gopls')
+      au User lsp_setup call lsp#register_server({
+              \ 'name': 'gopls',
+              \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+              \ 'whitelist': ['go'],
+              \ })
+          autocmd BufWritePre *.go LspDocumentFormatSync
+        endif
+let g:lsp_signs_enabled = 1         " enable signs
+let g:lsp_highlight_references_enabled = 1
+au User lsp_setup call lsp#register_server({
+   \ 'name': 'javascript support using typescript-language-server',
+   \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+   \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+   \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact'],
+   \ })
+set completeopt+=menuone
+colorscheme afterglow
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+augroup ProjectDrawer
+      autocmd!
+        autocmd VimEnter * :Vexplore
+    augroup END
+au VimEnter * :wincmd w
+let g:UltiSnipsSnippetDirectories=["/home/gauravity/.vim/UltiSnips"]

@@ -14,6 +14,7 @@ nmap k gk
 call plug#begin('~/.vim/plugged')
 Plug 'nightsense/carbonized'
 Plug 'SirVer/ultisnips'
+Plug 'tounaishouta/coq.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -40,6 +41,7 @@ nnoremap <leader>d      :LspDefinition<CR>
 nnoremap <leader>ev     :tabe ~/.vimrc<CR>
 nnoremap <leader>sv     :so ~/.vimrc<CR>
 nnoremap <leader>q      :wqa<CR>
+autocmd Filetype coq nnoremap <leader>c :CoqRunToCursor<CR>
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 if executable('gopls')
       au User lsp_setup call lsp#register_server({

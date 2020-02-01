@@ -4,6 +4,11 @@ set relativenumber
 set tabstop=4 softtabstop=0 expandtab shiftwidth=2 smarttab
 set splitbelow
 set splitright
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 map <C-h> <C-w>h
 map <C-j> <C-w>j

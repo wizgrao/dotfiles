@@ -7,12 +7,13 @@ export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/stakes-backend/cred.json"
+fpath+=("$HOME/.local/lib/node_modules/pure-prompt/functions")
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME=""
 bindkey -v
 
 bindkey '^P' up-history

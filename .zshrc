@@ -6,6 +6,8 @@ export ZSH="$HOME/.oh-my-zsh"
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export PATH=$HOME/flutter/bin:$PATH
+export PATH=/usr/local/anaconda3/bin/:$PATH
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/stakes-backend/cred.json"
 fpath+=("$HOME/.local/lib/node_modules/pure-prompt/functions")
 
@@ -32,6 +34,7 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
 alias vim=/usr/local/bin/vim
+alias blender=/Applications/Blender.app/Contents/MacOS/Blender
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('$HOME/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -39,9 +42,9 @@ if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
     if [ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/anaconda3/etc/profile.d/conda.sh"
+# . "$HOME/anaconda3/etc/profile.d/conda.sh"  # commented out by conda initialize
     else
-        export PATH="$HOME/anaconda3/bin:$PATH"
+# export PATH="$HOME/anaconda3/bin:$PATH"  # commented out by conda initialize
     fi
 fi
 unset __conda_setup
@@ -54,9 +57,24 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='vim'
 fi
-alias pbcopy='xclip -selection clipboard' #I feel like a boof for doing this but damn I type  in pbcopy too much
-alias pbpaste='xclip -selection clipboard -o'
 alias pp='python -mjson.tool'
 alias front='cd ~/stakes-frontend'
 alias back='cd ~/stakes-backend'
+
+# <<< conda init <<<
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/usr/local/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/local/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 

@@ -56,6 +56,15 @@ if executable('gopls')
               \ })
           autocmd BufWritePre *.go LspDocumentFormatSync
         endif
+if executable('hie')
+      au User lsp_setup call lsp#register_server({
+              \ 'name': 'hie',
+              \ 'cmd': {server_info->['hie', '--lsp']},
+              \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'stack.yaml'))},
+              \ 'whitelist': ['haskell'],
+              \ })
+          autocmd BufWritePre *.go LspDocumentFormatSync
+        endif
 let g:lsp_signs_enabled = 1         " enable signs
 let g:lsp_highlight_references_enabled = 1
 au User lsp_setup call lsp#register_server({

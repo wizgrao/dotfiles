@@ -7,7 +7,9 @@ export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 export PATH=$HOME/flutter/bin:$PATH
+export PATH=$HOME/flutter/bin/cache/dart-sdk/bin:$PATH
 export PATH=/usr/local/anaconda3/bin/:$PATH
+export PATH=/Users/gaurav/.nimble/bin:$PATH
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/stakes-backend/cred.json"
 fpath+=("$HOME/.local/lib/node_modules/pure-prompt/functions")
 
@@ -18,6 +20,19 @@ fpath+=("$HOME/.local/lib/node_modules/pure-prompt/functions")
 ZSH_THEME=""
 bindkey -v
 
+
+### Fix slowness of pastes with zsh-syntax-highlighting.zsh
+pasteinit() {
+  OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
+  zle -N self-insert url-quote-magic # I wonder if you'd need `.url-quote-magic`?
+}
+
+pastefinish() {
+  zle -N self-insert $OLD_SELF_INSERT
+}
+zstyle :bracketed-paste-magic paste-init pasteinit
+zstyle :bracketed-paste-magic paste-finish pastefinish
+### Fix slowness of pastes
 bindkey '^P' up-history
 bindkey '^N' down-history
 bindkey '^?' backward-delete-char
@@ -35,6 +50,7 @@ zle -N zle-keymap-select
 export KEYTIMEOUT=1
 alias vim=/usr/local/bin/vim
 alias blender=/Applications/Blender.app/Contents/MacOS/Blender
+alias untar="tar -xvzf"
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('$HOME/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -60,6 +76,7 @@ fi
 alias pp='python -mjson.tool'
 alias front='cd ~/stakes-frontend'
 alias back='cd ~/stakes-backend'
+alias dims='sips -g pixelHeight -g pixelWidth'
 
 # <<< conda init <<<
 

@@ -3,15 +3,18 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH:$HOME/.zsh/pure:$HOME/.local/bin
 export FPATH="$HOME/.zsh/pure":$FPATH
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-export GOROOT=/usr/local/go
+export GOROOT=/opt/brew/opt/go/libexec
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 export PATH=$HOME/flutter/bin:$PATH
 export PATH=$HOME/flutter/bin/cache/dart-sdk/bin:$PATH
 export PATH=/usr/local/anaconda3/bin/:$PATH
+export PATH=/usr/local/anaconda3/bin/:$PATH
+export PATH=/opt/brew/bin:$PATH
+export PATH=$(npm bin -g):$PATH
 export PATH=/Users/gaurav/.nimble/bin:$PATH
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/stakes-backend/cred.json"
-fpath+=("$HOME/.local/lib/node_modules/pure-prompt/functions")
+fpath+=('/Users/gaurav/.npm-global/lib/node_modules/pure-prompt/functions')
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -48,7 +51,6 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
-alias vim=/usr/local/bin/vim
 alias blender=/Applications/Blender.app/Contents/MacOS/Blender
 alias untar="tar -xvzf"
 # >>> conda initialize >>>
